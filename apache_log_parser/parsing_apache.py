@@ -1,5 +1,3 @@
-import re
-
 filepath = input("\n\nEnter filename path > ") 
 
 file_object = open(filepath)
