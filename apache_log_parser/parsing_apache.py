@@ -87,7 +87,7 @@ def Top10Unsuccessful(lines) :
     site_position = 6
     for line in lines:
         splitted=line.split()
-        if re.match(("^[4-5]"), (splitted[code_position])):
+        if (int(splitted[code_position]) > 399 and int(splitted[code_position]) < 522 ):
             if (splitted[site_position]) not in top10fail:
                 top10fail[(splitted[site_position])]=1
             else:
