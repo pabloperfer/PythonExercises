@@ -16,18 +16,18 @@ def First_walk(object):
     """reads every line in the file and invokes the correspondent function for each use case"""
     File_line = File_object.readline()
     while File_line:
-        Line_Splitted = File_line.split()
-        Top_10ips(Line_Splitted)
-        Top10_pages(Line_Splitted)
-        Top10_unsuccessful(Line_Splitted) 
+        Line_splitted = File_line.split()
+        Top_10ips(Line_splitted)
+        Top10_pages(Line_splitted)
+        Top10_unsuccessful(Line_splitted) 
         File_line = File_object.readline()
 
 def Second_walk(object):
     File_object.seek(0)
     File_line = File_object.readline()
     while File_line:
-        Line_Splitted = File_line.split()
-        Top5_pages(Top10_iplist,Line_Splitted)
+        Line_splitted = File_line.split()
+        Top5_pages(Top10_iplist,Line_splitted)
         File_line = File_object.readline()
 
 def Top_10ips(Splitted):
