@@ -1,102 +1,99 @@
-filepath = input("\n\nEnter filename path > ") 
-file_object = open(filepath)
+File_path = input("\n\nEnter filename path > ") 
+File_object = open(File_path)
 #Global variables 
-Top10Requesting = {}
-Top10IpList=[]
-Top5Requesting = {}
-Ip_Position = 0
-Site_Position = 6
-Code_Position  = -2
-Top10Sites = {}
-Top10Fail = {}
+Top10_requesting = {}
+Top10_iplist=[]
+Top5_requesting = {}
+Ip_position = 0
+Site_position = 6
+Code_position  = -2
+Top10_sites = {}
+Top10_fail = {}
 
 
-def FirsWalk(object):
-    file_object = open(filepath)
+def First_walk(object):
+    File_object = open(File_path)
     """reads every line in the file and invokes the correspondent function for each use case"""
-    file_line = file_object.readline()
-    while file_line:
-        linesplitted = file_line.split()
-        Top10IPs(linesplitted)
-        Top10Pages(linesplitted)
-        Top10Unsuccessful(linesplitted) 
-        file_line = file_object.readline()
+    File_line = File_object.readline()
+    while File_line:
+        Line_Splitted = File_line.split()
+        Top_10ips(Line_Splitted)
+        Top10_pages(Line_Splitted)
+        Top10_unsuccessful(Line_Splitted) 
+        File_line = File_object.readline()
 
-"""i need to read the file again after i got the top 10 ips in order to get the top 5
-sites requested only from those 10 ips. It't not possible to do it in the first read """ 
+def Second_walk(object):
+    File_object.seek(0)
+    File_line = File_object.readline()
+    while File_line:
+        Line_Splitted = File_line.split()
+        Top5_pages(Top10_iplist,Line_Splitted)
+        File_line = File_object.readline()
 
-def SecondWalkAfterTop10IPs(object):
-    file_object.seek(0)
-    file_line = file_object.readline()
-    while file_line:
-        linesplitted = file_line.split()
-        Top5PagesforTop10IPs(Top10IpList,linesplitted)
-        file_line = file_object.readline()
-
-def Top10IPs(splitted):
+def Top_10ips(Splitted):
     """
     Creates a dictionary with the IPs making the most requests displaying the IP address and number of requests made for each.
     """
     ###we check the ips that are repeated and how many times
-    if (splitted[Ip_Position]) not in Top10Requesting:
-        Top10Requesting[(splitted[Ip_Position])]=1
+    if (Splitted[Ip_position]) not in Top10_requesting:
+        Top10_requesting[(Splitted[Ip_position])]=1
     else:
-        Top10Requesting[(splitted[Ip_Position])]+=1
+        Top10_requesting[(Splitted[Ip_position])]+=1
 
 
-def PrintFinalDict(dict,topnumber,banner):         
+def Print_final(Dict,Topnumber,banner):         
     """we print the correspondent banner and number of top requests for each case"""
     print (f"\n\n{banner}\n")
     print ("======================")
     i = 0
-    if (len(Top10IpList) == 0) : 
-        for key, value in sorted(dict.items(),reverse=True ,key=lambda x: x[1]):
-            if i < topnumber :
+    if (len(Top10_iplist) == 0) : 
+        for key, value in sorted(Dict.items(),reverse=True ,key=lambda x: x[1]):
+            if i < Topnumber :
                 print(f"\n  {key}    count {value}")
-                Top10IpList.append(key)
+                Top10_iplist.append(key)
                 i+=1
     else:
-        for key, value in sorted(dict.items(),reverse=True ,key=lambda x: x[1]):
-            if i < topnumber :
+        for key, value in sorted(Dict.items(),reverse=True ,key=lambda x: x[1]):
+            if i < Topnumber :
                 print(f"\n  {key}    count {value}")
                 i+=1
           
     print ("\n")   
 
-def Top5PagesforTop10IPs(Top10IpList,splitted):
+def Top5_pages(Top10_iplist,Splitted):
     """
     For each of the top 10 IPs, create a dict with the top 5 pages succesful requested" 
     """
     
-    if (int(splitted[Code_Position ]) > 199 and int(splitted[Code_Position ]) < 400):
-        if splitted[Ip_Position] in Top10IpList: 
-            PureUrl=splitted[Site_Position].split('?')[0]
-            if PureUrl not in Top5Requesting:
-                Top5Requesting[PureUrl]=1                 
+    if (int(Splitted[Code_position ]) > 199 and int(Splitted[Code_position ]) < 400):
+        if Splitted[Ip_position] in Top10_iplist: 
+            Pure_url=Splitted[Site_position].split('?')[0]
+            if Pure_url not in Top5_requesting:
+                Top5_requesting[Pure_url]=1                 
             else:
-                Top5Requesting[PureUrl]+=1                 
+                Top5_requesting[Pure_url]+=1                 
 
 
-def Top10Pages(splitted):
+def Top10_pages(Splitted):
     """ Top 10 requested pages and the number of requests made for each """
-    if (splitted[Site_Position]) not in Top10Sites:
-        Top10Sites[(splitted[Site_Position])]=1                 
+    if (Splitted[Site_position]) not in Top10_sites:
+        Top10_sites[(Splitted[Site_position])]=1                 
     else:
-        Top10Sites[(splitted[Site_Position])]+=1                 
+        Top10_sites[(Splitted[Site_position])]+=1                 
                
-def Top10Unsuccessful(splitted) : 
+def Top10_unsuccessful(Splitted) : 
     """Top 10 unsuccessful page requests"""
-    if (int(splitted[Code_Position ]) > 399 and int(splitted[Code_Position ]) < 522 ):
-        if (splitted[Site_Position]) not in Top10Fail:
-            Top10Fail[(splitted[Site_Position])]=1
+    if (int(Splitted[Code_position ]) > 399 and int(Splitted[Code_position ]) < 522 ):
+        if (Splitted[Site_position]) not in Top10_fail:
+            Top10_fail[(Splitted[Site_position])]=1
         else:
-            Top10Fail[(splitted[Site_Position])]+=1
+            Top10_fail[(Splitted[Site_position])]+=1
 
 
-FirsWalk(file_object)
-PrintFinalDict(Top10Requesting,10,"######## TOP 10 IPs #######")
-PrintFinalDict(Top10Sites,10,"##### TOP 10 sites requested in total ####")
-PrintFinalDict(Top10Fail,10,"##### TOP 10 failed sites requested in total ####")
-SecondWalkAfterTop10IPs(file_object)
-PrintFinalDict(Top5Requesting,5,"### Top 5 Sites requested by top 10 IPS ###")
-file_object.close
+First_walk(File_object)
+Print_final(Top10_requesting,10,"######## TOP 10 IPs #######")
+Print_final(Top10_sites,10,"##### TOP 10 sites requested in total ####")
+Print_final(Top10_fail,10,"##### TOP 10 failed sites requested in total ####")
+Second_walk(File_object)
+Print_final(Top5_requesting,5,"### Top 5 Sites requested by top 10 IPS ###")
+File_object.close
