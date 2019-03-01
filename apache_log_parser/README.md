@@ -13,25 +13,25 @@ Enter filename path > /tmp/apache-httpd.log
 
 ======================
 
-  10.0.157.108    count 61
+  10.0.99.162    count 8
 
-  10.0.184.79    count 59
+  10.0.145.57    count 8
 
-  10.0.181.210    count 58
+  10.0.52.123    count 8
 
-  10.0.93.117    count 58
+  10.0.124.65    count 8
 
-  10.0.36.100    count 57
+  10.0.49.204    count 8
 
-  10.0.13.244    count 57
+  10.0.151.102    count 8
 
-  10.0.11.191    count 57
+  10.0.13.131    count 8
 
-  10.0.65.159    count 56
+  10.0.199.235    count 7
 
-  10.0.124.178    count 56
+  10.0.160.134    count 7
 
-  10.0.177.185    count 56
+  10.0.145.6    count 7
 
 
 
@@ -40,25 +40,25 @@ Enter filename path > /tmp/apache-httpd.log
 
 ======================
 
-  /finance/call.php    count 12378
+  /main/request.php    count 544
 
-  /printer/search.php    count 12357
+  /kernel/set.php    count 543
 
-  /kernel/list.php    count 12355
+  /printer/get.php    count 538
 
-  /system/get.php    count 12341
+  /finance/call.php    count 537
 
-  /kernel/call.php    count 12333
+  /finance/list.php    count 535
 
-  /finance/list.php    count 12318
+  /kernel/request.php    count 529
 
-  /statistics/call.php    count 12310
+  /finance/request.php    count 527
 
-  /system/request.php    count 12291
+  /main/list.php    count 527
 
-  /finance/add.php    count 12281
+  /printer/call.php    count 525
 
-  /system/remove.php    count 12281
+  /system/add.php    count 521
 
 
 
@@ -67,25 +67,25 @@ Enter filename path > /tmp/apache-httpd.log
 
 ======================
 
-  /finance/remove.php    count 4079
+  /printer/get.php    count 196
 
-  /system/search.php    count 4050
+  /system/call.php    count 184
 
-  /finance/add.php    count 4050
+  /main/remove.php    count 184
 
-  /main/remove.php    count 4049
+  /main/search.php    count 182
 
-  /kernel/set.php    count 4039
+  /kernel/request.php    count 182
 
-  /system/remove.php    count 4034
+  /statistics/call.php    count 179
 
-  /printer/set.php    count 4034
+  /finance/request.php    count 179
 
-  /printer/add.php    count 4034
+  /printer/search.php    count 178
 
-  /system/get.php    count 4032
+  /finance/call.php    count 177
 
-  /printer/search.php    count 4030
+  /kernel/add.php    count 176
 
 
 
@@ -94,14 +94,14 @@ Enter filename path > /tmp/apache-httpd.log
 
 ======================
 
-  /kernel/get.php    count 6
+  /statistics/set.php    count 5
 
-  /system/get.php    count 6
+  /main/get.php    count 3
 
-  /system/search.php    count 6
+  /system/call.php    count 3
 
-  /printer/remove.php    count 6
+  /printer/set.php    count 3
 
-  /finance/get.php    count 5
+  /kernel/set.php    count 3
 
 
