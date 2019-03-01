@@ -1,111 +1,98 @@
 filepath = input("\n\nEnter filename path > ") 
-
 file_object = open(filepath)
+#Global variables 
+Top10Requesting = {}
+Top10IpList=[]
+Top5Requesting = {}
+Ip_Position = 0
+Site_Position = 6
+Code_Position  = -2
+Top10Sites = {}
+Top10Fail = {}
 
-file_lines = file_object.readlines()
 
+def FirsWalk(object):
+    file_object = open(filepath)
+    """reads every line in the file and invokes the correspondent function for each use case"""
+    file_line = file_object.readline()
+    while file_line:
+        linesplitted = file_line.split()
+        Top10IPs(linesplitted)
+        Top10Pages(linesplitted)
+        Top10Unsuccessful(linesplitted) 
+        file_line = file_object.readline()
+###i need to read the file again after i got the top 10 ips in order to get the top 5 sites before is not possible to do it in one read.
+def SecondWalkAfterTop10IPs(object):
+    file_object.seek(0)
+    file_line = file_object.readline()
+    while file_line:
+        linesplitted = file_line.split()
+        Top5PagesforTop10IPs(Top10IpList,linesplitted)
+        file_line = file_object.readline()
 
-def Top10IPs(lines):
+def Top10IPs(splitted):
     """
-    Show the top 10 IPs making the most requests, displaying the IP address and number of requests made for each.
+    Creates a dictionary with the IPs making the most requests displaying the IP address and number of requests made for each.
     """
-    top10requesting = {}
-    Ip_position = 0
-    #we iterate all the lines in the file 
-    for line in file_lines:
-        splitted=line.split()
     ###we check the ips that are repeated and how many times
-        if (splitted[Ip_position]) not in top10requesting:
-            top10requesting[(splitted[Ip_position])]=1
-        else:
-            top10requesting[(splitted[Ip_position])]+=1
-         
-    ###we print the ips in order by adding an inline function that adds the second element ,the value,to be passed to the sort function 
-    print ("\n\n########### TOP 10 IPS #############\n")
+    if (splitted[Ip_Position]) not in Top10Requesting:
+        Top10Requesting[(splitted[Ip_Position])]=1
+    else:
+        Top10Requesting[(splitted[Ip_Position])]+=1
+
+
+def PrintFinalDict(dict,topnumber,banner):         
+    """we print the correspondent banner and number of top requests for each case"""
+    print (f"\n\n{banner}\n")
     print ("======================")
     i = 0
-    outputlist=[]
-    for ip, count in sorted(top10requesting.items(),reverse=True ,key=lambda x: x[1]):
-        if i < 10 :
-            print(f"\nip : {ip}    count {count}")
-            i+=1
-            outputlist.append(ip)
-     
+    if (len(Top10IpList) == 0) : 
+        for key, value in sorted(dict.items(),reverse=True ,key=lambda x: x[1]):
+            if i < topnumber :
+                print(f"\n  {key}    count {value}")
+                Top10IpList.append(key)
+                i+=1
+    else:
+        for key, value in sorted(dict.items(),reverse=True ,key=lambda x: x[1]):
+            if i < topnumber :
+                print(f"\n  {key}    count {value}")
+                i+=1
+          
+    print ("\n")   
+
+def Top5PagesforTop10IPs(Top10IpList,splitted):
+    """
+    For each of the top 10 IPs, create a dict with the top 5 pages succesful requested" 
+    """
     
-    return outputlist
-
-
-def Top5PagesforTop10IPs(top10list,lines):
-    """
-    For each of the top 10 IPs, this shows the top 5 pages requested and the number of requests for each. (anything 2xx or 3xx)
-    """
-    top5requesting = {}
-    site_position = 6
-    code_position = -2
-
-    for ip in top10list:
-        for line in lines:
-            if ip in line:          
-                splitted=line.split()
-                if (int(splitted[code_position]) > 199 and int(splitted[code_position]) < 309): 
-                    if (splitted[site_position]) not in top5requesting:
-                        top5requesting[(splitted[site_position])]=1                 
-                    else:
-                        top5requesting[(splitted[site_position])]+=1                 
-
-                else :
-                    continue
-    i = 0
-    print (f"\n ########## Top 5 Sites requested by top 10 IPS ########\n")
-    for site, count in sorted(top5requesting.items(),reverse=True, key=lambda x: x[1]):
-        if i<5:
-            i+=1
-            print(f"\n site: {site} count : {count}") 
-
-def Top10pages(lines):
-    """ Top 10 requested pages and the number of requests made for each """
-    top10sites = {}
-    site_position = 6
-    for line in lines:
-        splitted=line.split()       
-        if (splitted[site_position]) not in top10sites:
-            top10sites[(splitted[site_position])]=1                 
-        else:
-            top10sites[(splitted[site_position])]+=1                 
-               
-    print (f"\n ########## TOP 10 SITES REQUESTED ########\n")
-    i=0
-    for site, count in sorted(top10sites.items(),reverse=True, key=lambda x: x[1]):
-        if i<5:
-            print(f"\n site: {site} count : {count}") 
-            i+=1
-                
-def Top10Unsuccessful(lines) : 
-    """Top 10 unsuccessful page requests"""
-    top10fail = {}
-    code_position = -2
-    site_position = 6
-    for line in lines:
-        splitted=line.split()
-        if (int(splitted[code_position]) > 399 and int(splitted[code_position]) < 522 ):
-            if (splitted[site_position]) not in top10fail:
-                top10fail[(splitted[site_position])]=1
+    if (int(splitted[Code_Position ]) > 199 and int(splitted[Code_Position ]) < 400):
+        if  splitted[Ip_Position] in Top10IpList: 
+            if splitted[Site_Position] not in Top5Requesting:
+                Top5Requesting[(splitted[Site_Position])]=1                 
             else:
-                top10fail[(splitted[site_position])]+=1
-
-        else :
-            continue
-    i = 0
-    print (f"\n ########## Top 10 site requests failed  ########\n")
-    for site, count in sorted(top10fail.items(),reverse=True, key=lambda x: x[1]):
-        if i<10:
-            i+=1
-            print(f"\n site: {site} count : {count}")
-    print ("\n")
-outputlist=Top10IPs(file_lines)
-Top5PagesforTop10IPs(outputlist,file_lines)
-Top10pages(file_lines)
-Top10Unsuccessful(file_lines)
+                Top5Requesting[(splitted[Site_Position])]+=1                 
 
 
+def Top10Pages(splitted):
+    """ Top 10 requested pages and the number of requests made for each """
+    if (splitted[Site_Position]) not in Top10Sites:
+        Top10Sites[(splitted[Site_Position])]=1                 
+    else:
+        Top10Sites[(splitted[Site_Position])]+=1                 
+               
+def Top10Unsuccessful(splitted) : 
+    """Top 10 unsuccessful page requests"""
+    if (int(splitted[Code_Position ]) > 399 and int(splitted[Code_Position ]) < 522 ):
+        if (splitted[Site_Position]) not in Top10Fail:
+            Top10Fail[(splitted[Site_Position])]=1
+        else:
+            Top10Fail[(splitted[Site_Position])]+=1
+
+
+FirsWalk(file_object)
+PrintFinalDict(Top10Requesting,10,"######## TOP 10 IPs #######")
+PrintFinalDict(Top10Sites,10,"##### TOP 10 sites requested in total ####")
+PrintFinalDict(Top10Fail,10,"##### TOP 10 failed sites requested in total ####")
+SecondWalkAfterTop10IPs(file_object)
+PrintFinalDict(Top5Requesting,5,"### Top 5 Sites requested by top 10 IPS ###")
 file_object.close
