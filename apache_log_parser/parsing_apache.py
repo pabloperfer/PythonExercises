@@ -69,11 +69,12 @@ def Top5PagesforTop10IPs(Top10IpList,splitted):
     """
     
     if (int(splitted[Code_Position ]) > 199 and int(splitted[Code_Position ]) < 400):
-        if  splitted[Ip_Position] in Top10IpList: 
-            if splitted[Site_Position] not in Top5Requesting:
-                Top5Requesting[(splitted[Site_Position])]=1                 
+        if splitted[Ip_Position] in Top10IpList: 
+            PureUrl=splitted[Site_Position].split('?')[0]
+            if PureUrl not in Top5Requesting:
+                Top5Requesting[PureUrl]=1                 
             else:
-                Top5Requesting[(splitted[Site_Position])]+=1                 
+                Top5Requesting[PureUrl]+=1                 
 
 
 def Top10Pages(splitted):
