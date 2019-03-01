@@ -21,7 +21,10 @@ def FirsWalk(object):
         Top10Pages(linesplitted)
         Top10Unsuccessful(linesplitted) 
         file_line = file_object.readline()
-###i need to read the file again after i got the top 10 ips in order to get the top 5 sites before is not possible to do it in one read.
+
+"""i need to read the file again after i got the top 10 ips in order to get the top 5
+sites requested only from those 10 ips. It't not possible to do it in the first read """ 
+
 def SecondWalkAfterTop10IPs(object):
     file_object.seek(0)
     file_line = file_object.readline()
