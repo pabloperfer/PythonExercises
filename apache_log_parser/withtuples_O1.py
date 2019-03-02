@@ -18,6 +18,7 @@ request_list=[]
 #We read the log file line by line, for each we create an instance of a named tuple
 File_line = File_object.readline()
 
+#we create a list of dictionaries with each named tuple
 while File_line:
     Line_splitted = File_line.split()
     Record = Request((Line_splitted[Ip_position]),(Line_splitted[Site_position].split('?')[0]),(Line_splitted[Code_position]))
