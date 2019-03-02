@@ -28,12 +28,39 @@ while File_line:
 
 File_object.close
 
+# we walk the list of dictionaries for the tops that depend on a second index pattern
+Top10_fail = {}
 
+for d in request_list:
+    if int(d['code']) >399 and int(d['code']) <522:
+        if d['site'] not in Top10_fail:
+            Top10_fail[(d['site'])]=1
+        else: 
+            Top10_fail[(d['site'])]+=1
+
+
+def Print_final(Dict,Topnumber,banner):         
+    """we print the correspondent banner and number of top requests for each case"""
+    print (f"\n{banner}\n")
+    i = 0
+    for key, value in sorted(Dict.items(),reverse=True ,key=lambda x: x[1]):
+        if i < Topnumber :
+            print(f" {key} : count {value}," ,end = ' ' )
+            i+=1
+          
+    print ("\n")   
+
+Print_final(Top10_fail,10,"Top 10 failed sites requested in total #########")
 
 ####Using counter to count all the IP occurrences and return the 10 most common
 print ("Top 10 IPs#########\n")
-print(Counter(x['ip'] for x in request_list).most_common(10))
+print(Counter(x['ip'] for x in request_list).most_common(10)); print ("\n")
 
+###The same but with sites
+print ("Top 10 Sites#########\n")
+print(Counter(x['site'] for x in request_list).most_common(10))
 
+###Top 10 unsucessful
+print ("Top 10 Unsuccefulf Requested Sites#########\n")
 
 
