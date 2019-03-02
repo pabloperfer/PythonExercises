@@ -3,6 +3,9 @@ from collections import Counter
 
 #Global variables
 File_path = input("\n\nEnter filename path > ")
+Ip_position = 0
+Site_position = 6
+Code_position  = -2
 
 #Opening file
 File_object = open(File_path)
