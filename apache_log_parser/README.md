@@ -1,3 +1,8 @@
+Version mejorada:
+    solo recorro archivo una vez
+    uso de collections counter y namedtuples
+    mucho mas rapido
+
 Enter filename path > /tmp/apache-httpd.log
 Top 10 IPs#########
 
