@@ -26,9 +26,9 @@ if not os.path.isdir(path):
 # functions for each file type to get files in the path
 
 def walking_dir_tree_files(path):
-    for entry in scandir(path):  
+    for entry in scandir(path):
         if entry.is_dir(follow_symlinks=False):
-            yield from walking_dir_tree_files(entry.path) 
+            yield from walking_dir_tree_files(entry.path)
         elif (entry.is_file(follow_symlinks=False) and entry.name == args.name):
             yield os.path.join(path,entry.name)
 
@@ -39,12 +39,18 @@ def walking_dir_tree_dirs(path):
         if entry.is_dir(follow_symlinks=False):
             yield from walking_dir_tree_dirs(entry.path)
 
-def walking_dir_tree_simb(path):
-    for entry in scandir(path):
-        if entry.is_dir(follow_symlinks=False):
-            yield from walking_dir_tree_files(entry.path)
-        if entry.is_symlink() and entry.name == args.name:
-            yield os.path.join(path,entry.name)
+#I use os.walk for symbolic links as i need to exclude some special file systems like sys to not get a system error because too many levels of symlinks
+def walk_error_handler(exception_instance):
+    raise Exception('Exception')
+
+def walk_sym(path):
+    exclude=["proc","dev","sys"]
+    for dirName, subdirList, fileList in os.walk(path,followlinks=True,topdown=True,onerror=walk_error_handler):
+        for fname in fileList:
+            subdirList[:] = [d for d in subdirList if d not in exclude]
+            if fname == args.name:
+                print (os.path.join(dirName,fname))
+
 
 if args.type == ("-"):
     for i in walking_dir_tree_files(path):
@@ -55,10 +61,6 @@ elif args.type == ("d"):
         print(i)
 
 elif args.type == ("l"):
-    for i in walking_dir_tree_simb(path):
-        print(i)
+    walk_sym(path)
 
 
-
-  
-    
