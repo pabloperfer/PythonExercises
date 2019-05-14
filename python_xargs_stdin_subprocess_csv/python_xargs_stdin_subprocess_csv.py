@@ -1,6 +1,6 @@
 ''' 
 
-receives the input of a csv file and behaves like xargs 
+receives the input of a csv file and command with some arguments
 xargs reads items from the standard input, delimited by blanks and executes the command 
 
 echo users.csv | python3 python_xargs_stdin_subprocess_csv.py  useradd -e 2080-03-27 -U 
