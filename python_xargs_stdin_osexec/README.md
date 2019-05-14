@@ -1,4 +1,4 @@
-receives the input of a csv file and behaves like xargs
+#receives the input of a csv file and behaves like xargs
 
 #xargs reads items from the standard input, delimited by blanks and executes the command 
 
