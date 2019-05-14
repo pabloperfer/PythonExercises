@@ -1,6 +1,6 @@
 #receives the input of a csv file and behaves like xargs 
 #xargs reads items from the standard input, delimited by blanks and executes the command 
-# like :   echo users.csv | python3 myxargs.py useradd -e 2080-03-27
+#like :   echo users.csv | python3 myxargs.py useradd -e 2080-03-27
 #CSV files contain data comma-separated values describing values in a table.:
 #FIRST NAME ,LAST NAME,USERNAME ,PASSWORD ,EMAIL ADDRESS,PHONE NUMBER,PASSPORT,GROUPS,USERCODE,TITLE,ADDRESS 1 ,ADDRESS #2,CITY,STATE,ZIP
 #Frank,Riley,friley,changeme,friley@kanab.org,123-456-7890,3,"1,3",1040,Teacher,328 Innovation,Suite # 200 ,state #college,PA,16803
