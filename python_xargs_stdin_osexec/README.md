@@ -1,4 +1,4 @@
-#receives the input of a csv file and behaves like xargs 
+receives the input of a csv file and behaves like xargs 
 #xargs reads items from the standard input, delimited by blanks and executes the command 
 #like :   echo users.csv | python3 myxargs.py useradd -e 2080-03-27
 #CSV files contain data comma-separated values describing values in a table.:
