@@ -9,7 +9,7 @@ import socket
 
 MAX_SIZE_BYTES = 65535 # Maximum size of a UDP datagram
 
-# we create a socket object for IPV4 and UDP
+# we create a socket object for IPV4 and UDPS
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 port = 3000
